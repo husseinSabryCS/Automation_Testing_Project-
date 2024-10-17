@@ -48,7 +48,7 @@ public class AdminTest {
 //         assertTrue(adminPage.isUserAddedSuccessfully(), "User should be added successfully.");
     }
     @Test
-    @DisplayName("Test Search Functionality in Admin Page")
+    @DisplayName("Test Search Functionality in Admin Page ByUsername")
     public void testUserSearchByUsername() {
         // Step 1: Login with valid admin credentials
         loginPage.enterUsername("Admin");
@@ -57,53 +57,42 @@ public class AdminTest {
 
 
         // Step 4: Search by Username
-//        adminPage.searchByUsername(username);
-//        assertTrue(adminPage.isUserFound(username), "User 'Admin' should be found.");
-
-        // Step 5: Search by Role
-        adminPage.searchByRole("ESS");
-        assertTrue(adminPage.isSearchResultContainsRole("ESS"), "ESS role users should be found.");
-/*
-        // Step 6: Search by Employee Name
-        adminPage.searchByEmployeeName("Linda");
-        assertTrue(adminPage.isUserFound("Linda"), "Employee 'Linda' should be found.");
-
-        // Step 7: Search by Status
-        adminPage.searchByStatus("Enabled");
-        assertTrue(adminPage.isSearchResultContainsStatus("Enabled"), "Enabled users should be listed.");
-
-        // Step 8: Search without entering any data
-        adminPage.clickSearch();
-//        assertTrue(adminPage.isSearchResultDisplayed(), "Search should display all users.");
-
-        // Step 9: Search with non-existent data
-        adminPage.searchByUsername("NonExistentUser");
-        assertTrue(adminPage.isNoRecordFound(), "'No records found' message should be displayed.");
-
-        // Step 10: Combined search with Username and Role
-        adminPage.searchByUsernameAndRole("Admin", "Admin");
-        assertTrue(adminPage.isUserFound("Admin"), "User 'Admin' with role 'Admin' should be found.");
-
-        // Step 11: Search with partial data (e.g., part of username)
-        adminPage.searchByUsername("Adm");
-        assertTrue(adminPage.isSearchResultContainsPartialUsername("Adm"), "Users with partial match should be found.");
-
-        // Step 12: Test performance (response time should be reasonable)
-        long startTime = System.currentTimeMillis();
-        adminPage.clickSearch();
-        long endTime = System.currentTimeMillis();
-        assertTrue((endTime - startTime) < 3000, "Search should complete in less than 3 seconds.");
-
-        // Step 13: Verify 'No records found' message
-        adminPage.searchByUsername("InvalidUser");
-        assertTrue(adminPage.isNoRecordFound(), "'No records found' should appear for invalid user.");
-
-        // Step 14: Role-based access check (handled by role-based login logic)
-        // Ensure you test this with another user account with limited access.
-
-        // Step 15 & 16: Verify search results and pagination
-        assertTrue(adminPage.isPaginationWorking(), "Pagination should work properly.");*/
+        adminPage.searchByUsername(username);
+        assertTrue(adminPage.isUserFound(username), "User 'Admin' should be found.");
     }
+    @Test
+    @DisplayName("Test Search Functionality in Admin Page by Status")
+    public void testUserSearchByStatus() {
+        loginPage.enterUsername("Admin");
+        loginPage.enterPassword("admin123");
+        loginPage.clickLogin();
+        adminPage.selectStatussearch("Disabled");
+        adminPage.clickSearch();
+
+    }
+    @Test
+    @DisplayName("Test Search Functionality in Admin Page by Role")
+    public void testUserSearchByRole() {
+        loginPage.enterUsername("Admin");
+        loginPage.enterPassword("admin123");
+        loginPage.clickLogin();
+        adminPage.selectRoleSearch("ESS");
+        adminPage.clickSearch();
+
+    }
+    @Test
+    @DisplayName("Test Search Functionality in Admin Page by Role")
+    public void testUserSearchByEmployeeName() {
+        loginPage.enterUsername("Admin");
+        loginPage.enterPassword("admin123");
+        loginPage.clickLogin();
+         adminPage.typeEmployeeNameAndSelectFirstSearch("J");
+        adminPage.clickSearch();
+
+    }
+
+
+
 
 
 

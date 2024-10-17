@@ -1,12 +1,8 @@
 package Pages;
-
 import org.openqa.selenium.*;
-
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.List;
 
@@ -22,55 +18,17 @@ public class AdminPage {
 
     // Element Locators
     private final By addUserButton = By.xpath("//button[text()=' Add ']");
-    private final By usernameField = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[4]/div/div[2]/input");
-    private final By roleDropdown = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[1]/div/div[2]/div/div/div[1]");
-    private final By employeeNameLocator = By.cssSelector("input[placeholder='Type for hints...']");
-    private final By employeeDropdownOptionsLocator = By.xpath("//div[@role='listbox']//span");
-    private final By passwordField = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[1]/div/div[2]/input");
-    private final By confirmPasswordField = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[2]/div/div[2]/input");
-    private final By statusDropdown = By.xpath("(//div[@class='oxd-select-text-input'])[2]");
-    private final By saveButton = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[3]/button[2]");
-//search locators
-    private final By adminMenu = By.xpath("//span[text()='Admin']");
-    private final By systemUsers = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[2]/div[3]");
-    private final By usernameFieldsearch = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div/div[1]/div/div[2]/input");
-    private final By roleDropdownsearch  = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div/div[2]/div/div[2]/div/div/div[1]");
-    private final By employeeNameField = By.xpath("//input[@placeholder='Type for hints...']");
-    private final By statusDropdownsearch  = By.xpath("//select[@name='status']");
-    private final By searchButton = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[2]/button[2]");
-    private final By noRecordMessage = By.xpath("//div[text()='No Records Found']");
-    private final By paginationNext = By.xpath("//a[text()='Next']");
     // Click "Add User" Button
     public void clickAddUser() {
         waitUntilClickable(addUserButton).click();
     }
-
+    private final By usernameField = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[4]/div/div[2]/input");
     // Enter Username
     public void enterUsername(String username) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(usernameField));
         waitUntilVisible(usernameField).sendKeys(username);
     }
-
-    // Select Role from Dropdown
-    public void selectRole(String role) {
-        // Wait for the role dropdown to become clickable
-        WebElement roleDropdownElement = waitUntilClickable(roleDropdown);
-        roleDropdownElement.click(); // Open the dropdown
-
-        // Wait for the dropdown options to load
-        By dropdownOptionsLocator = By.xpath("//div[contains(@class, 'oxd-select-dropdown')]//span[text()='" + role + "']");
-        WebElement roleOption = waitUntilClickable(dropdownOptionsLocator);
-
-        // Scroll into view and click the role option
-        Actions actions = new Actions(driver);
-        actions.moveToElement(roleOption).click().perform();
-    }
-
-    // Select Status from Dropdown
-    public void selectStatus(String status) {
-        waitUntilClickable(statusDropdown).click();
-        waitUntilClickable(By.xpath("//span[text()='" + status + "']")).click();
-    }
+    private final By employeeNameLocator = By.cssSelector("input[placeholder='Type for hints...']");
 
     // Type Employee Name and Select First Option from Suggestions
     public void typeEmployeeNameAndSelectFirst(String employeeName) {
@@ -87,38 +45,54 @@ public class AdminPage {
         }
     }
 
+    private final By passwordField = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[1]/div/div[2]/input");
+
     // Enter Password
     public void enterPassword(String password) {
         waitUntilVisible(passwordField).sendKeys(password);
     }
+    private final By confirmPasswordField = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[2]/div/div[2]/input");
 
     // Enter Confirm Password
     public void enterConfirmPassword(String confirmPassword) {
         waitUntilVisible(confirmPasswordField).sendKeys(confirmPassword);
     }
+    private final By statusDropdown = By.xpath("(//div[@class='oxd-select-text-input'])[2]");
+
+    // Select Status from Dropdown
+    public void selectStatus(String status) {
+
+        waitUntilClickable(statusDropdown).click();
+        waitUntilClickable(By.xpath("//span[text()='" + status + "']")).click();
+    }
+    private final By roleDropdown = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[1]/div/div[2]/div/div/div[1]");
+
+    // Select Role from Dropdown
+    public void
 
 
+    selectRole(String role) {
+        // Wait for the role dropdown to become clickable
+        WebElement roleDropdownElement = waitUntilClickable(roleDropdown);
+        roleDropdownElement.click(); // Open the dropdown
+
+        // Wait for the dropdown options to load
+        By dropdownOptionsLocator = By.xpath("//div[contains(@class, 'oxd-select-dropdown')]//span[text()='" + role + "']");
+        WebElement roleOption = waitUntilClickable(dropdownOptionsLocator);
+
+        // Scroll into view and click the role option
+        Actions actions = new Actions(driver);
+        actions.moveToElement(roleOption).click().perform();
+    }
+    private final By saveButton = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[3]/button[2]");
 
     // Click Save Button
     public void clickSave() {
         waitUntilClickable(saveButton).click();
     }
 
-    // Helper Method to Wait for Element to be Clickable
-    private WebElement waitUntilClickable(By locator) {
-        return wait.until(ExpectedConditions.elementToBeClickable(locator));
-    }
 
-    // Helper Method to Wait for Element to be Visible
-    private WebElement waitUntilVisible(By locator) {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-    }
-
-    // Navigate to System Users section
-    public void navigateToSystemUsers() {
-        wait.until(ExpectedConditions.elementToBeClickable(adminMenu)).click();
-        wait.until(ExpectedConditions.elementToBeClickable(systemUsers)).click();
-    }
+    private final By usernameFieldsearch = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div/div[1]/div/div[2]/input");
 
     // Search by Username
     public void searchByUsername(String username) {
@@ -127,47 +101,8 @@ public class AdminPage {
 
         clickSearch();
     }
+    private final By systemUsers = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[2]/div[3]");
 
-    // Search by Role
-    public void searchByRole(String role) {
-        // 1. افتح القائمة المنسدلة
-        waitUntilClickable(roleDropdownsearch).click();
-
-        // 2. انتظر حتى يظهر العنصر المطلوب بناءً على النص (role)
-        WebElement roleOption = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//div[contains(@class, 'oxd-select-option') and text()='" + role + "']")));
-
-        // 3. انقر على الخيار من القائمة
-        roleOption.click();
-
-        // 4. انقر على زر البحث
-        clickSearch();
-    }
-
-    // Search by Employee Name
-    public void searchByEmployeeName(String employeeName) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(employeeNameField)).sendKeys(employeeName);
-        clickSearch();
-    }
-
-    // Search by Status
-    public void searchByStatus(String status) {
-        wait.until(ExpectedConditions.elementToBeClickable(statusDropdown)).sendKeys(status);
-        clickSearch();
-    }
-
-    // Combined Search
-    public void searchByUsernameAndRole(String username, String role) {
-        searchByUsername(username);
-        searchByRole(role);
-    }
-
-    // Click Search button
-    public void clickSearch() {
-        driver.findElement(searchButton).click();
-    }
-
-    // Check if user is found
     // Check if the user is found in the table
     public boolean isUserFound(String username) {
         // Wait for the table to be visible
@@ -183,32 +118,119 @@ public class AdminPage {
         String displayedUsername = driver.findElement(firstRowUsername).getText();
         return displayedUsername.equals(username);
     }
+    private final By StatusLocatorsearch = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div/div[4]/div/div[2]/div/div/div[1]");
+    public void selectStatussearch(String status) {
+        waitUntilClickable(StatusLocatorsearch).click();
+        waitUntilClickable(By.xpath("//span[text()='" + status + "']")).click();
+}
+    private final By roleDropdownsearch  = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div/div[2]/div/div[2]/div/div/div[1]");
 
-    // Check if search result contains partial username
-    public boolean isSearchResultContainsPartialUsername(String partialUsername) {
-        List<WebElement> results = driver.findElements(By.xpath("//td[contains(text(), '" + partialUsername + "')]"));
-        return !results.isEmpty();
+    public void selectRoleSearch(String role) {
+        // Wait for the role dropdown to become clickable
+        WebElement roleDropdownElement = waitUntilClickable(roleDropdownsearch);
+        roleDropdownElement.click(); // Open the dropdown
+
+        // Wait for the dropdown options to load
+        By dropdownOptionsLocator = By.xpath("//div[contains(@class, 'oxd-select-dropdown')]//span[text()='" + role + "']");
+        WebElement roleOption = waitUntilClickable(dropdownOptionsLocator);
+
+        // Scroll into view and click the role option
+        Actions actions = new Actions(driver);
+        actions.moveToElement(roleOption).click().perform();
     }
 
-    // Check if no records found
-    public boolean isNoRecordFound() {
-        return driver.findElement(noRecordMessage).isDisplayed();
+
+
+
+    private final By employeeDropdownOptionsLocator = By.xpath("//div[@role='listbox']//span");
+
+
+
+    private final By adminMenu = By.xpath("//span[text()='Admin']");
+    private final By employeeNameField = By.xpath("//input[@placeholder='Type for hints...']");
+    private final By searchButton = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[2]/button[2]");
+    private final By noRecordMessage = By.xpath("//div[text()='No Records Found']");
+
+
+
+
+
+
+
+
+
+
+    private  final By employeeNameLocatorSearch =By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div/div[3]/div/div[2]/div/div/input");
+    private final By employeeDropdownOptionsLocatorSearch=By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div/div[3]/div/div[2]/div/div/input");
+    public void typeEmployeeNameAndSelectFirstSearch(String employeeName) {
+        // Type the employee name (partial name)
+        WebElement employeeNameInput = driver.findElement(employeeNameLocatorSearch);
+        employeeNameInput.sendKeys(employeeName);  // Type the partial employee name
+
+        // Wait for the dropdown to populate and become visible
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Increase the wait time if necessary
+        wait.until(ExpectedConditions.visibilityOfElementLocated(employeeDropdownOptionsLocatorSearch));
+
+        // Get all options from the dropdown
+        List<WebElement> dropdownOptions = driver.findElements(employeeDropdownOptionsLocatorSearch);
+
+        // Check if the dropdown has any options, then click the first one
+        if (!dropdownOptions.isEmpty()) {
+            WebElement firstOption = dropdownOptions.get(0);  // Get the first option in the list
+            firstOption.click();  // Select the first employee
+        } else {
+            System.out.println("No options available in the dropdown");
+        }
+
     }
 
-    // Check if pagination works
-    public boolean isPaginationWorking() {
-        return driver.findElement(paginationNext).isDisplayed();
+
+
+
+
+        // Helper Method to Wait for Element to be Clickable
+    private WebElement waitUntilClickable(By locator) {
+        return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
-    // Check if search result contains the specified role
-    public boolean isSearchResultContainsRole(String role) {
-        return driver.findElement(By.xpath("//td[text()='" + role + "']")).isDisplayed();
+    // Helper Method to Wait for Element to be Visible
+    private WebElement waitUntilVisible(By locator) {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-    // Check if search result contains the specified status
-    public boolean isSearchResultContainsStatus(String status) {
-        return driver.findElement(By.xpath("//td[text()='" + status + "']")).isDisplayed();
+    // Navigate to System Users section
+    public void navigateToSystemUsers() {
+        wait.until(ExpectedConditions.elementToBeClickable(adminMenu)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(systemUsers)).click();
+    }
+
+
+    // Search by Role
+    public void searchByRole(String role) {
+        // 1. افتح القائمة المنسدلة
+        waitUntilClickable(roleDropdownsearch).click();
+
+        // 2. ابحث عن الخيارات المتاحة داخل القائمة
+        List<WebElement> roleOptions = wait.until(ExpectedConditions
+                .visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(@class, 'oxd-select-option')]")));
+
+        // 3. تحقق وابحث عن الخيار المطلوب بناءً على النص
+        for (WebElement option : roleOptions) {
+            if (option.getText().trim().equalsIgnoreCase(role)) {
+                option.click(); // انقر على الخيار
+                break;
+            }
+        }
+
+        // 4. انقر على زر البحث
+    }
+
+
+    // Click Search button
+    public void clickSearch() {
+        driver.findElement(searchButton).click();
     }
 
 
 }
+
