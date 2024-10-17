@@ -80,5 +80,19 @@ public class WorkShiftPage {
             return false; // إذا لم يظهر العنصر، نرجع false
         }
     }
+    public void deleteShift(String shiftName) {
+        // البحث عن الشيفت باستخدام اسمه
+        WebElement shiftElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[contains(text(),'" + shiftName + "')]"))); // تأكد من تحديد الشيفت الصحيح
+
+        // الآن استهداف زر الحذف الذي يخص هذا الشيفت
+        WebElement deleteButton = shiftElement.findElement(By.xpath(".//following::button[@class='oxd-icon-button oxd-table-cell-action-space'][1]"));
+        deleteButton.click();
+
+        WebElement confirmDeleteButton = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[@class='oxd-button oxd-button--medium oxd-button--label-danger orangehrm-button-margin']"))); // زر التأكيد
+        confirmDeleteButton.click();
+    }
+
 
 }

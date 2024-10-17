@@ -13,7 +13,7 @@ public class WorkShiftTest {
     private WebDriver driver;
     private LoginPage loginPage;
     private WorkShiftPage workShiftPage;
-    String shiftName = "Morning Shift9";
+    String shiftName = "Morning Shift109";
     @BeforeEach
     public void setUp() {
         driver = new ChromeDriver();
@@ -44,7 +44,18 @@ public class WorkShiftTest {
         // Example: Verify if the shift is added successfully
         assertTrue("Work shift should be added successfully.", workShiftPage.isShiftAdded(shiftName));
     }
+    @Test
+    @DisplayName("Test Adding a New Work Shift")
+    public void testDeleteWorkShift() {
 
+
+        workShiftPage.deleteShift(shiftName);
+
+        // التحقق من حذف الشيفت
+        assertTrue("Work shift should be deleted successfully.", !workShiftPage.isShiftAdded(shiftName));
+
+
+    }
     @AfterEach
     public void tearDown() {
         if (driver != null) {
