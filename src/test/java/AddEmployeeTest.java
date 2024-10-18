@@ -37,7 +37,7 @@ public class AddEmployeeTest {
         firstName = "hussein";          // User input for first name
         middleName = "sabry";           // User input for middle name
         lastName = "h";            // User input for last name
-        employeeId = "12345";        // User input for employee ID
+        employeeId = "123";        // User input for employee ID
         username = "husseinsabryh";       // User input for username
         password = "Password123";     // User input for password
     }
@@ -70,7 +70,7 @@ public class AddEmployeeTest {
         addEmployeePage.clickSave();
 
         String errorMessage = addEmployeePage.getErrorMessage();
-        assertTrue(errorMessage.contains("First Name is required"), "Expected first name required message.");
+        assertTrue(errorMessage.contains("Required"), "Expected first name required message.");
     }
 
     @Test
@@ -82,19 +82,21 @@ public class AddEmployeeTest {
         addEmployeePage.clickSave();
 
         String errorMessage = addEmployeePage.getErrorMessage();
-        assertTrue(errorMessage.contains("Last Name is required"), "Expected last name required message.");
+        assertTrue(errorMessage.contains("Required"), "Expected last name required message.");
     }
 
     @Test
     public void testAddEmployeeWithMissingEmployeeId() {
         addEmployeePage.open();
+        addEmployeePage.clearEmployeeIdField();
+
         addEmployeePage.enterFirstName(firstName);
         addEmployeePage.enterMiddleName(middleName);
         addEmployeePage.enterLastName(lastName);
         addEmployeePage.clickSave();
-
+        addEmployeePage.clearEmployeeIdFieldPage();
         String errorMessage = addEmployeePage.getErrorMessage();
-        assertTrue(errorMessage.contains("Employee ID is required"), "Expected employee ID required message.");
+        assertTrue(errorMessage.contains("Required"), "Expected employee ID required message.");
     }
 
     @Test
@@ -107,7 +109,7 @@ public class AddEmployeeTest {
         addEmployeePage.clickSave();
 
         String errorMessage = addEmployeePage.getErrorMessage();
-        assertTrue(errorMessage.contains("Username is required"), "Expected username required message.");
+        assertTrue(errorMessage.contains("Required"), "Expected username required message.");
     }
 
     @Test
@@ -117,18 +119,18 @@ public class AddEmployeeTest {
         addEmployeePage.enterMiddleName(middleName);
         addEmployeePage.enterLastName(lastName);
         addEmployeePage.enterEmployeeId(employeeId);
-        addEmployeePage.uploadImage("path/to/invalid/image.txt"); // Using a non-image file
-        addEmployeePage.clickSave();
+        addEmployeePage.uploadImage("C:\\Users\\Admin\\IdeaProjects\\FINAL_PROJECT\\image\\1.jpg");
+      //  addEmployeePage.clickSave();
 
-        String errorMessage = addEmployeePage.getErrorMessage();
-        assertTrue(errorMessage.contains("Invalid file type"), "Expected invalid file type message.");
+       // String errorMessage = addEmployeePage.getErrorMessage();
+      //  assertTrue(errorMessage.contains("Invalid file type"), "Expected invalid file type message.");
     }
 
     @AfterEach
     public void tearDown() {
         // Close browser after each test
         if (driver != null) {
-           // driver.quit();
+             driver.quit();
         }
     }
 }

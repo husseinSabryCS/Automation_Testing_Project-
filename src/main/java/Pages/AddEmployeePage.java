@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -16,6 +17,7 @@ public class AddEmployeePage {
     private final By middleNameField = By.xpath("//input[@class=\"oxd-input oxd-input--active orangehrm-middlename\"]");
     private final By lastNameField = By.xpath("//input[@class=\"oxd-input oxd-input--active orangehrm-lastname\"]");
     private final By employeeIdField = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div[2]/div[1]/div[2]/div/div/div[2]/input");
+    private final By employeeIdFieldpage = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[2]/div[1]/div[1]/div/div[2]/input");
     private final By imageUploadField = By.xpath("//button[@class=\"oxd-icon-button oxd-icon-button--solid-main employee-image-action\"]");
     private final By createLoginDetailsCheckbox = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div[2]/div[2]/div/label/span");
     private final By usernameField = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div[2]/div[3]/div/div[1]/div/div[2]/input");
@@ -25,7 +27,7 @@ public class AddEmployeePage {
     private final By successMessage = By.xpath("//div[@class=\"orangehrm-edit-employee-name\"]");
 
     // Locator for error message
-    private final By errorMessageLocator = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div[2]/div[1]/div[1]/div/div/div[2]/div[3]/span ");
+    private final By errorMessageLocator = By.xpath("//span[@class=\"oxd-text oxd-text--span oxd-input-field-error-message oxd-input-group__message\"]");
 
     // Constructor to pass the WebDriver
     public AddEmployeePage(WebDriver driver) {
@@ -62,9 +64,13 @@ public class AddEmployeePage {
     public void enterEmployeeId(String employeeId) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         WebElement employeeIdInput = wait.until(ExpectedConditions.visibilityOfElementLocated(employeeIdField));
+
         employeeIdInput.clear();
+        System.out.println("Value after clear: " + employeeIdInput.getAttribute("value"));  // تحقق من التفريغ
+
         employeeIdInput.sendKeys(employeeId);
     }
+
 
     // Upload profile image
     public void uploadImage(String imagePath) {
@@ -126,5 +132,29 @@ public class AddEmployeePage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement errorMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessageLocator));
         return errorMsg.getText();
+    }
+
+    public void clearEmployeeIdField() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement employeeIdInput = wait.until(ExpectedConditions.visibilityOfElementLocated(employeeIdField));
+
+        // استخدام JavaScript لتفريغ الحقل
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].value = '';", employeeIdInput);
+
+        // التحقق من التفريغ
+        System.out.println("Value after JS clear: " + employeeIdInput.getAttribute("value"));
+    }
+
+    public void clearEmployeeIdFieldPage() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement employeeIdInput = wait.until(ExpectedConditions.visibilityOfElementLocated(employeeIdFieldpage));
+
+        // استخدام JavaScript لتفريغ الحقل
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].value = '';", employeeIdInput);
+
+        // التحقق من التفريغ
+        System.out.println("Value after JS clear: " + employeeIdInput.getAttribute("value"));
     }
 }
