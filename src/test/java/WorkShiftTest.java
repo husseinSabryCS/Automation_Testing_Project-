@@ -1,9 +1,6 @@
 import Pages.LoginPage;
 import Pages.WorkShiftPage;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -42,7 +39,7 @@ public class WorkShiftTest {
 
         // Optional: Add assertions to verify success
         // Example: Verify if the shift is added successfully
-        assertTrue("Work shift should be added successfully.", workShiftPage.isShiftAdded(shiftName));
+        Assertions.assertTrue(workShiftPage.isShiftAdded(shiftName), "Work shift should be added successfully.");
     }
     @Test
     @DisplayName("Test Adding a New Work Shift")

@@ -26,7 +26,7 @@ public class LoginTest {
         loginPage.enterPassword("admin123");
         loginPage.clickLogin();
 
-        String expectedUrl = "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index";
+        String expectedUrl = "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/ind";
         String actualUrl = driver.getCurrentUrl();
         assertEquals(expectedUrl, actualUrl, "Login failed or wrong URL.");
     }
@@ -76,7 +76,7 @@ public class LoginTest {
     public void tearDown() {
         // Close browser after each test
         if (driver != null) {
-            driver.quit();
+            // driver.quit();
         }
     }
 }
